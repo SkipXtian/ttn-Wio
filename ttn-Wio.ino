@@ -52,6 +52,7 @@
 // cycle limitations).
 const unsigned TX_INTERVAL = 300; //5mins
 #define PACKET_SIZE 25
+char mydata[PACKET_SIZE] = {0};
 
 #define BME280_ADDRESS 0x76
 #define RAIN_GUAGE_PIN 7
@@ -89,5 +90,31 @@ void setup()
 
 void loop() 
 {
-    os_runloop_once();
+  os_runloop_once();
+}
+
+void buildDataPacket()
+{
+  mydata[0] = (char)0;
+  
+  int32_t temperature; 
+  uint32_t pressure, humidity;
+  getBMEData(&temperature, &pressure, &humidity);
+  char seperator[] = ",";
+  char tempBuf[6];
+  ltoa(temperature, tempBuf, 10);
+  char preBuf[8];
+  ultoa(pressure, preBuf, 10);
+  char humBuf[6];
+  ultoa(humidity, humBuf, 10);
+  char rainBuf[8];
+  ultoa(calcUnitRain(), rainBuf, 10);
+  
+  strcat(mydata, tempBuf);
+  strcat(mydata, seperator);
+  strcat(mydata, preBuf);
+  strcat(mydata, seperator);
+  strcat(mydata, humBuf);
+  strcat(mydata, seperator);
+  strcat(mydata, rainBuf);
 }

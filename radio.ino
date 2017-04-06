@@ -89,34 +89,11 @@ void do_send(osjob_t* j)
         DEBUG_PRINTLN(F("OP_TXRXPEND, not sending"));
     } else {
         // Prepare upstream data transmission at the next possible time.
-//**********************************************************************************************************************
-        char mydata [PACKET_SIZE] = {0};
-
-        int32_t temperature; 
-        uint32_t pressure, humidity;
-        getBMEData(&temperature, &pressure, &humidity);
-        char seperator[] = ",";
-        char tempBuf[6];
-        ltoa(temperature, tempBuf, 10);
-        char preBuf[8];
-        ultoa(pressure, preBuf, 10);
-        char humBuf[6];
-        ultoa(humidity, humBuf, 10);
-        char rainBuf[8];
-        ultoa(calcUnitRain(), rainBuf, 10);
-        
-        strcat(mydata, tempBuf);
-        strcat(mydata, seperator);
-        strcat(mydata, preBuf);
-        strcat(mydata, seperator);
-        strcat(mydata, humBuf);
-        strcat(mydata, seperator);
-        strcat(mydata, rainBuf);
-        
-        //buildDataPacket(mydata);
+//**********************************************************************************************************************  
+        buildDataPacket();
         DEBUG_PRINTLN(mydata); 
         byte i = 0;
-        for(i = 0; i < sizeof(mydata); i++){
+        for(i = 0; i < PACKET_SIZE; i++){
           if(mydata[i] == '\0') {
             break;
           }
