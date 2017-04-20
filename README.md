@@ -23,8 +23,8 @@ Upload using the Arduino IDE the "Lilypad Arduino USB" board.
 In your TTN console you should see data start to arrive. The example is configured to transmit every 5 minutes. You can change this in ttn_Wio.ino, look for TX_INTERVAL = 300; Unit is seconds.
 
 The data should appear in this format: 
-"32 36 32 38 2C 31 30 31 38 34 36 2C 35 35 34 33 2C 30" Which translates to:
-  2  6  2  8  ,  1  0  1  8  4  6  ,  5  5  4  3  ,  0
+"32 36 32 38 2C 31 30 31 38 34 36 2C 35 35 34 33 2C 30" Which translates to: <br>
+  2  6  2  8  ,  1  0  1  8  4  6  ,  5  5  4  3  ,  0<br>
 26.28degress C,      1018.46hPa    ,55.43% Humidity, 0 Rain Ticks
 
 The Tempurature,Barometric and Humidity are divided by 100 to give the decimal places.
