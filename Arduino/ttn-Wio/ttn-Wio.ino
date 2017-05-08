@@ -1,7 +1,7 @@
 //FOR THIS TO COMPILE YOU MUST DISABLE DEBUGGING IN CONFIG.H OF Arduino-lmic
 
 //Defining DEBUG removes the attachInterupt for the rain gauge to allow it to compile small enough.
-//#define DEBUG
+#define DEBUG
 #ifdef DEBUG
  #define DEBUG_PRINTLN(x)  Serial.println(x)
  #define DEBUG_PRINT(x)  Serial.print(x)
@@ -46,6 +46,7 @@
 #include <hal/hal.h>
 #include <Wire.h>
 #include "secrets.h" // moved secret keys referenced below to here
+#include <avr/wdt.h>
 
 
 // Schedule TX every this many seconds (might become longer due to duty
@@ -62,6 +63,7 @@ static osjob_t sendjob;
 
 void setup() 
 {
+  wdt_disable();
   
 #ifdef DEBUG
   Serial.begin(115200);
@@ -84,12 +86,15 @@ void setup()
 
   LMIC_setClockError(MAX_CLOCK_ERROR * 1 / 100);
 
+  wdt_enable(WDTO_8S);
+  
   // Start job (sending automatically starts OTAA too)
   do_send(&sendjob);
 }
 
 void loop() 
 {
+  wdt_reset();
   os_runloop_once();
 }
 
