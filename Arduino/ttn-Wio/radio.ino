@@ -92,14 +92,8 @@ void do_send(osjob_t* j)
 //**********************************************************************************************************************  
         buildDataPacket();
         DEBUG_PRINTLN(mydata); 
-        byte i = 0;
-        for(i = 0; i < PACKET_SIZE; i++){
-          if(mydata[i] == '\0') {
-            break;
-          }
-        }
 //**********************************************************************************************************************        
-        LMIC_setTxData2(1, (unsigned char *)mydata, i, 0);  //sizeof(mydata) (unsigned char *)
+        LMIC_setTxData2(1, mydata, PACKET_SIZE, 0);  //sizeof(mydata) (unsigned char *)
         DEBUG_PRINTLN(F("Packet queued"));
     }
     // Next TX is scheduled after TX_COMPLETE event.

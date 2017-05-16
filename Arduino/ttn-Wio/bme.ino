@@ -43,7 +43,7 @@ void bmeInit()
 
 
 
-void getBMEData(int32_t *temp_cal, uint32_t *press_cal,uint32_t *hum100)
+void getBMEData(int16_t *temp_cal, uint32_t *press_cal,uint16_t *hum100)  //was 32
 {
     uint32_t hum_cal;
 

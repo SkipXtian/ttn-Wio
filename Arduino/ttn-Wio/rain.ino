@@ -3,12 +3,12 @@
 
 #define RAIN_FACTOR 28 //0.2794  is actual
 
-volatile uint32_t rainTipper=0;
+volatile uint8_t rainTipper=0;
 volatile uint32_t rainLastTip=0;
 
-uint32_t getRainCount()
+uint8_t getRainCount()
 {   
-  uint32_t rainTipperCount = rainTipper;
+  uint8_t rainTipperCount = rainTipper;
   rainTipper=0;
   return rainTipperCount;
 }
